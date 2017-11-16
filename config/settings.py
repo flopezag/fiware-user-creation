@@ -80,10 +80,11 @@ if Config.sections():
     # Data from Google section
     google_section = config_section_map("google")
 
-    CREDENTIAL = os.path.join(cfg_dir, google_section['credential'])
+    USER_CREDENTIAL = os.path.join(cfg_dir, google_section['usercredential'])
     SHEET_ID = google_section['sheetid']
     SERVICE_ACCOUNT_KEY = google_section['serviceaccountkey']
 
+    GOOGLE_CREDENTIAL = google_section['googlecredential']
     # Log section
     log_section = config_section_map("log")
 

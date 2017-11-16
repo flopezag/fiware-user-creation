@@ -18,15 +18,16 @@
 ##
 import os
 
-from httplib2 import Http
 from apiclient import discovery
+from httplib2 import Http
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
-from config.settings import CREDENTIAL, SERVICE_ACCOUNT_KEY, SERVICE_ACCOUNT_KEY_HOME, CODE_HOME
-from config.constants import APPLICATION_NAME, CREDENTIAL_DIR, CREDENTIAL_FILE
 from oauth2client.service_account import ServiceAccountCredentials
-from config.log import logger
+
+from config.constants import APPLICATION_NAME, CREDENTIAL_DIR
+from config.settings import USER_CREDENTIAL, GOOGLE_CREDENTIAL, SERVICE_ACCOUNT_KEY, SERVICE_ACCOUNT_KEY_HOME, CODE_HOME
+from kernel.log import logger
 
 try:
     import argparse
@@ -64,14 +65,14 @@ def get_credentials(api):
         except OSError as e:
             logger.error("Unable to create the corresponding directory: {}".format(e.message))
 
-    credential_path = os.path.join(credential_folder, CREDENTIAL_FILE)
+    credential_path = os.path.join(credential_folder, GOOGLE_CREDENTIAL)
 
     if api == 'sheets':
         store = Storage(credential_path)
         credentials = store.get()
 
         if not credentials or credentials.invalid:
-            flow = client.flow_from_clientsecrets(CREDENTIAL, scope[api])
+            flow = client.flow_from_clientsecrets(USER_CREDENTIAL, scope[api])
             flow.user_agent = APPLICATION_NAME
 
             credentials = tools.run_flow(flow, store, flags)
