@@ -33,8 +33,6 @@ __author__ = 'fla'
 
 
 class TestCreateOps(TestCase):
-    pass
-
     def testFilterGoogleSheetMix(self):
         initial_value = [[u'08/11/2017 19:57:52', u'Juyyyy Uyyyy Foooo', u'jufoo.fffoooo@gmail.com', u'SaoPaulo',
                           u'1w0zkcHMFayk0wiYfdXyX2VhawoHNlnsU8DODXfdTiksOLCi', u'1'],

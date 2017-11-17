@@ -1,18 +1,14 @@
 language: python
-python:
-  - "2.7"
+python: 2.7
+env:
+ - TOX_ENV=py27
+ - TOX_ENV=pycodestyle
 
-# command to install dependencies
 install:
-  - pip install -r requirements.txt
-  - pip install -r test-requirements.txt
-  - pip install coveralls
-  - pip install pycodestyle
-  - export USER_CREATE_SETTINGS_FILE=$(pwd)/config/user-create.ini
+ - pip install tox
 
 script:
-  - pycodestyle --max-line-length=120 .
-  - nosetests --with-coverage --cover-package=./ --exe
+ - tox -e $TOX_ENV
 
 after_success:
   coveralls
