@@ -23,10 +23,14 @@ from keystoneclient.v3 import client
 import keystoneauth1
 from datetime import datetime
 from Mailer import Mailer
+from kernel.log import logger
 import os
 import string
 import random
 import sys
+
+
+__author__ = 'José Ignacio Carretero'
 
 
 class KeystoneConfig:
@@ -54,6 +58,7 @@ class KeystoneUsers:
         self.project_domain_id = config.project_domain_id
         self.project_id = config.project_id
 
+        logger.info("KeystoneUsers created")
         self.__connect_keystone_lib()
 
     def __connect_keystone_lib(self):
@@ -153,12 +158,12 @@ class CreateTrialUser:
         keystone_users = KeystoneUsers()
         existing_user = keystone_users.get_user(self.user_name)
         if existing_user is not None:
-            print "USER ALREADY EXISTS!!"
+            logger.warn("USER ALREADY EXISTS!!")
             return None
 
         region_filters = keystone_users.get_endpoint_group_for_region(self.region)
         if len(region_filters) == 0:
-            print "NO FILTERS FOR REGION", self.region
+            logger.warn("NO FILTERS FOR REGION "+self.region)
             return None
 
 
@@ -167,6 +172,8 @@ class CreateTrialUser:
         user_data = keystone_users.create_user(self.user_name, project_data.id, self.password) 
         keystone_users.set_role_assignments_for_user(user_data.id) 
         keystone_users.add_user_to_region(user_data, region)
+
+        logger.info("user %s created in region %s" % (self.user_name, self.region))
         return user_data
 
     def __send_mail__(self):

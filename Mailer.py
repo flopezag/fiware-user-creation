@@ -20,6 +20,11 @@
 import smtplib
 from email.mime.text import MIMEText
 from jinja2 import Template
+from kernel.log import logger
+
+
+__author__ = 'José Ignacio Carretero'
+
 
 class Mailer:
     subject = "Your FIWARE Lab account has been created"
@@ -47,9 +52,13 @@ class Mailer:
         msg['Subject'] = Mailer.subject
         msg['From'] = Mailer.msg_from
         msg['To'] = to
-        s = smtplib.SMTP(Mailer.mail_host)
-        s.sendmail(Mailer.msg_from, [to,"joseignacio.carretero@fiware.org", "fernando.lopez@fiware.org"], msg.as_string())
-        s.quit()
+        try:
+            s = smtplib.SMTP(Mailer.mail_host)
+            s.sendmail(Mailer.msg_from, [to,"joseignacio.carretero@fiware.org", "fernando.lopez@fiware.org"], msg.as_string())
+            s.quit()
+            logger.info("Sent mail to %s" % (to))
+        except:
+            logger.warning("Problem sending email to %s" %(to))
 
 
 if __name__ == "__main__":
