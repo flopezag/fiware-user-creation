@@ -23,3 +23,12 @@ GOOGLE_ACCOUNTS_BASE_URL = 'https://accounts.google.com'
 APPLICATION_NAME = 'FIWARE Lab User Create'
 CREDENTIAL_DIR = '.credentials'
 LOG_FILE = 'user-create.log'
+
+# JIRA Transactions
+START_PROGRESS = 'Start Progress'
+FINISH = 'Finish'
+TRANSACTION_ID_FIELD_NAME = 'id'
+TRANSACTION_NAME_FIELD_NAME = 'name'
+
+# JIRA Query
+JIRA_QUERY = 'project = LAB AND resolution = Unresolved AND component = "FIWARE LAB USER CREATION"'

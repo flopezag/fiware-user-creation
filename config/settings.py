@@ -60,7 +60,7 @@ def config_section_map(section):
             dict1[option] = Config.get(section, option)
             if dict1[option] == -1:
                 print("skip: %s" % option)
-        except:
+        except Exception:
             print("exception on %s!" % option)
             dict1[option] = None
     return dict1
@@ -94,8 +94,8 @@ if Config.sections():
     jira_section = config_section_map("jira")
 
     JIRA_USER = jira_section['user']
-
     JIRA_PASSWORD = jira_section['password']
+    JIRA_SERVER = jira_section['server']
 
 else:
     msg = '\nERROR: There is not defined USER_CREATE_SETTINGS_FILE environment variable ' \
