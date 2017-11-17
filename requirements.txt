@@ -4,4 +4,3 @@ google-api-python-client==1.6.4
 configparser==3.5.0
 jira==1.0.10
 raven
-configparser==3.5.0
