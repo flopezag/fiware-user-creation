@@ -64,9 +64,9 @@ class TestCreateOps(TestCase):
         self.assertEqual(expected_value, result)
 
     def testExtractDescriptionInfo(self):
-        initial_value = u'User name: Alberto Barbado\r\nemail: alberto_barbado@iecisa.com\r\nregion: Spain2'
+        initial_value = u'User name: Alberto Albertini\r\nemail: alberto_albertini@party.com\r\nregion: Spain2'
 
-        expected_value = [u'Alberto Barbado', u'alberto_barbado@iecisa.com', u'Spain2']
+        expected_value = [u'Alberto Albertini', u'alberto_albertini@party.com', u'Spain2']
 
         pattern = r".*:[ ]*(.*)"
         compiled_re = re.compile(pattern)
