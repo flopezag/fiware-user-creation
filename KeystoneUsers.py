@@ -135,7 +135,7 @@ class KeystoneUsers:
             self.keystone.endpoint_filter.add_endpoint_group_to_project(endpoint_group.id, project_id)
 
 
-class CreateTrialUser:
+class TrialUser:
     def __init__(self, user_name, region):
         self.user_name = user_name
         self.region = region
@@ -187,5 +187,5 @@ if __name__ == "__main__":
     user_name = sys.argv[1]
     region = sys.argv[2]
 
-    CreateTrialUser(user_name, region).new_user()
+    TrialUser(user_name, region).new_user()
 
