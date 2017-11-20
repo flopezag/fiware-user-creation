@@ -22,7 +22,7 @@ from keystoneauth1 import session
 from keystoneclient.v3 import client
 import keystoneauth1
 from datetime import datetime
-from Mailer import Mailer
+from mailer import Mailer
 from kernel.log import logger
 import os
 import string
@@ -62,9 +62,11 @@ class KeystoneUsers:
         self.__connect_keystone_lib()
 
     def __connect_keystone_lib(self):
-        self.auth = v3.Password(auth_url=self.auth_url, username=self.username, 
+        self.auth = v3.Password(auth_url=self.auth_url, username=self.username,
                                 password=self.password, project_name=self.project_name,
-                                user_domain_id=self.user_domain_id, project_domain_id=self.project_domain_id, project_id=self.project_id)
+                                user_domain_id=self.user_domain_id, project_domain_id=self.project_domain_id,
+                                project_id=self.project_id)
+
         self.session = session.Session(auth=self.auth)
         self.keystone = client.Client(session=self.session)
 
@@ -77,7 +79,7 @@ class KeystoneUsers:
         except keystoneauth1.exceptions.http.NotFound:
             try:
                 result = manager.find(name=resource_name_or_id)
-            except  keystoneauth1.exceptions.http.NotFound:
+            except keystoneauth1.exceptions.http.NotFound:
                 pass
         return result
 
@@ -126,7 +128,7 @@ class KeystoneUsers:
 
     def get_endpoint_group_for_region(self, region_name):
         endpoint_groups = self.keystone.endpoint_groups.list()
-        return [x for x in endpoint_groups if x.filters.has_key('region_id') and x.filters['region_id'] == region_name]
+        return [x for x in endpoint_groups if 'region_id' in x.filters and x.filters['region_id'] == region_name]
 
     def add_user_to_region(self, user_data, region_name):
         endpoint_groups = self.get_endpoint_group_for_region(region_name)
@@ -143,8 +145,7 @@ class TrialUser:
 
     @staticmethod
     def __password__():
-        rand_str = lambda n: ''.join([random.choice(string.lowercase+string.digits) 
-                                     for i in xrange(n)])
+        rand_str = lambda n: ''.join([random.choice(string.lowercase+string.digits) for i in xrange(n)])
         return rand_str(20)
 
     def new_user(self):
@@ -166,11 +167,10 @@ class TrialUser:
             logger.warn("NO FILTERS FOR REGION "+self.region)
             return None
 
-
         project_name = self.user_name + " cloud"
-        project_data = keystone_users.create_project(project_name, 'Generated project') 
-        user_data = keystone_users.create_user(self.user_name, project_data.id, self.password) 
-        keystone_users.set_role_assignments_for_user(user_data.id) 
+        project_data = keystone_users.create_project(project_name, 'Generated project')
+        user_data = keystone_users.create_user(self.user_name, project_data.id, self.password)
+        keystone_users.set_role_assignments_for_user(user_data.id)
         keystone_users.add_user_to_region(user_data, region)
 
         logger.info("user %s created in region %s" % (self.user_name, self.region))
@@ -180,6 +180,7 @@ class TrialUser:
         mailer = Mailer()
         mailer.send(self.user_name, self.password)
 
+
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         exit(1)
@@ -188,4 +189,3 @@ if __name__ == "__main__":
     region = sys.argv[2]
 
     TrialUser(user_name, region).new_user()
-

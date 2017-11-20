@@ -1,0 +1,48 @@
+---
+# ------------------------
+# Deploy the general stuff
+# ------------------------
+- hosts: all
+  become: yes
+  # strategy: debug
+
+  pre_tasks:
+    - name: Update APT cache
+      apt: update_cache=yes
+
+  tasks:
+    # General tasks
+    - name: install pip
+      apt: name=python-pip state=present update_cache=yes
+
+    - name: install virtualenv
+      apt: name=python-virtualenv state=present update_cache=yes
+
+    - name: disable net.ipv6.conf.all.disable_ipv6
+      sysctl: name=net.ipv6.conf.all.disable_ipv6 value=1 state=present
+
+    - name: disable net.ipv6.conf.default.disable_ipv6
+      sysctl: name=net.ipv6.conf.default.disable_ipv6 value=1 state=present
+ 
+    - name: disable net.ipv6.conf.lo.disable_ipv6
+      sysctl: name=net.ipv6.conf.lo.disable_ipv6 value=1 state=present
+
+    # Clone repository
+    - git:
+        repo: https://github.com/flopezag/fiware-user-creation.git
+        dest: /home/ubuntu/fiware-user-creation
+
+    # Debug purpose (to be deleted): Change deploy branch
+    - name: Change the working directory to fiware-user-creation/ before changing the branch to develop.
+      shell: git checkout deploy >> somelog.txt
+      args:
+        chdir: fiware-user-creation/
+
+    # Configure files
+    - name: Run the config.sh script and configure the environment
+      shell: sudo ./config.sh 2>error.out
+      args:
+        chdir: fiware-user-creation/deploy/
+
+    - name: Copy logrotate configuration file
+      shell: sudo cp ./fiware-user-creation/config/user-create.logrotate /etc/logrotate.d/user-create

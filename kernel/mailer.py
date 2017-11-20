@@ -32,16 +32,15 @@ class Mailer:
     mail_host = "admtools.lab.fiware.org"
     message_text = """
     Your account  in FIWARE Lab -- https://cloud.lab.fiware.org -- has been created
-    
+
     Username: {{to}}
     Password: {{password}}
-    
+
     Please, change your password in your 1st access. You can send your questions to  fiware-lab-help@lists.fi-ware.org
-    
+
     Best Regards,
     FIWARE Lab Team
     """
-
 
     def __init__(self):
         pass
@@ -54,11 +53,13 @@ class Mailer:
         msg['To'] = to
         try:
             s = smtplib.SMTP(Mailer.mail_host)
-            s.sendmail(Mailer.msg_from, [to,"joseignacio.carretero@fiware.org", "fernando.lopez@fiware.org"], msg.as_string())
+            s.sendmail(Mailer.msg_from,
+                       [to, "joseignacio.carretero@fiware.org", "fernando.lopez@fiware.org"], msg.as_string())
+
             s.quit()
-            logger.info("Sent mail to %s" % (to))
-        except:
-            logger.warning("Problem sending email to %s" %(to))
+            logger.info("Sent mail to %s" % to)
+        except Exception:
+            logger.warning("Problem sending email to %s" % to)
 
 
 if __name__ == "__main__":
