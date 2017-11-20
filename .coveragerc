@@ -1,0 +1,11 @@
+[report]
+omit =
+    tests/*
+    setup.py
+    env/*
+include =
+    kernel/*.py
+    config/*.py
+
+[report]
+ignore_errors = True

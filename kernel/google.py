@@ -18,7 +18,7 @@
 ##
 import os
 
-from apiclient import discovery
+from apiclient.discovery import build
 from httplib2 import Http
 from oauth2client import client
 from oauth2client import tools
@@ -103,15 +103,15 @@ def get_service(api_name):
         http_auth = credentials.authorize(Http())
 
         if api_name is 'analytics':
-            result = discovery.build(serviceName=api_name,
-                                     version=service[api_name],
-                                     http=http_auth,
-                                     cache_discovery=False)
+            result = build(serviceName=api_name,
+                           version=service[api_name],
+                           http=http_auth,
+                           cache_discovery=False)
         else:
-            result = discovery.build(serviceName=api_name,
-                                     version=service[api_name],
-                                     http=http_auth,
-                                     discoveryServiceUrl=discoveryServiceUrl[api_name],
-                                     cache_discovery=False)
+            result = build(serviceName=api_name,
+                           version=service[api_name],
+                           http=http_auth,
+                           discoveryServiceUrl=discoveryServiceUrl[api_name],
+                           cache_discovery=False)
 
         return result

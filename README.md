@@ -1,5 +1,8 @@
 # fiware-user-creation
 [![License badge](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Dependency Status](https://gemnasium.com/badges/github.com/flopezag/fiware-user-creation.svg)](https://gemnasium.com/github.com/flopezag/fiware-user-creation)
+[![Build Status](https://travis-ci.org/flopezag/fiware-user-creation.svg?branch=master)](https://travis-ci.org/flopezag/fiware-user-creation)
+[![Coverage Status](https://coveralls.io/repos/github/flopezag/fiware-user-creation/badge.svg)](https://coveralls.io/github/flopezag/fiware-user-creation)
 
 Script to create automatically FIWARE Lab users taking the information from
 
