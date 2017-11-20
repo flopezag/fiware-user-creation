@@ -74,3 +74,31 @@ class TestCreateOps(TestCase):
         result = CreateOps.extract_description_info(compiled_re, initial_value)
 
         self.assertEqual(expected_value, result)
+
+    def testFilterList(self):
+        initial_list1 = [
+                [u'Juyyyy Uyyyy Foooo', u'jufoo.fffoooo@gmail.com', u'SaoPaulo'],
+                [u'Wang Win Win', u'www@gmail.com', u'Spain2'],
+                [u'Will Smith', u'wsmith@kepa.org', u'Spain2'],
+                [u'Wang Win Win', u'www@gmail.com', u'Spain2'],
+                [u'Will Smith', u'wsmith@kepa.org', u'Spain2'],
+                [u'William Gill', u'wgil@foo.foo', u'Senegal'],
+                [u'Mauro Marin', u'mmarin@guerrilla.mail', u'Hannover'],
+                [u'caterina2', u'caterina2.catherina@caterina.com', u'Spain2']
+        ]
+
+        initial_list2 = [
+                [u'LAB-2081', [u'Wang Win Win', u'www@gmail.com', u'Spain2']],
+                [u'LAB-2081', [u'Martha Stevens ', u'mstevens@outlook.com', u'Lannion4']],
+                [u'LAB-2081', [u'Cody Obrien', u'cobrien@hotmail.com', u'Spain2']],
+                [u'LAB-2080', [u'Juyyyy Uyyyy Foooo', u'jufoo.fffoooo@gmail.com', u'SaoPaulo']]
+        ]
+
+        expected_value = [
+            [u'LAB-2081', [u'Wang Win Win', u'www@gmail.com', u'Spain2']],
+            [u'LAB-2080', [u'Juyyyy Uyyyy Foooo', u'jufoo.fffoooo@gmail.com', u'SaoPaulo']]
+        ]
+
+        result = CreateOps.filter_lists(list1=initial_list1, list2=initial_list2)
+
+        self.assertEqual(expected_value, result)
