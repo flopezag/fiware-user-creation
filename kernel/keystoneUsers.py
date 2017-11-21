@@ -145,8 +145,12 @@ class TrialUser:
 
     @staticmethod
     def __password__():
-        rand_str = lambda n: ''.join([random.choice(string.lowercase+string.digits) for i in xrange(n)])
-        return rand_str(20)
+        return TrialUser.rand_str(20)
+
+    @staticmethod
+    def rand_str(number):
+        result = ''.join([random.choice(string.lowercase + string.digits) for i in xrange(number)])
+        return result
 
     def new_user(self):
         self.password = self.__password__()
