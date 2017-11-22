@@ -1,0 +1,45 @@
+---
+# Set OpenStack Auth URL
+os_auth_url: <OpenStack Auth URL>
+
+# Set OpenStack Admin username
+os_username: <OpenStack Admin username>
+
+# Set OpenStack Admin password
+os_password: <OpenStack Admin password>
+
+# Set OpenStack Admin project name
+os_project_name: <OpenStack Admin project name>
+
+# Set OpenStack Admin domain ID
+os_user_domain_id: <OpenStack Admin domain ID>
+
+# Set OpenStack Admin project ID
+os_project_id: <OpenStack Admin project ID>
+
+# Set OpenStack Admin project domain ID
+os_project_domain_id: <OpenStack Admin project domain ID>
+
+# ID of the Google Sheet in which we keep the information of user creation
+sheetid: <ID of the Google Sheet in which we keep the information of user creation>
+
+# Google User Credential file in JSON format
+user_credential: <Google User Credential file in JSON format>
+
+# Google Sheet Open API credential in JSON format
+google_credential: <Google Sheet Open API credential in JSON format>
+
+# Google service account key to get the access to the data in JSON format
+service_account_key: <Google service account key to get the access to the data in JSON format>
+
+# FIWARE JIRA URL
+jira_server_url: <FIWARE JIRA URL>
+
+# FIWARE JIRA Username
+jira_user: <FIWARE JIRA Username>
+
+# FIWARE JIRA Password
+jira_password: <FIWARE JIRA Password>
+
+# LOG Level of the application
+log_level: <LOG Level of the application>
