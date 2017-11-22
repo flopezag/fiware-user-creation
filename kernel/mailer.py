@@ -21,6 +21,7 @@ import smtplib
 from email.mime.text import MIMEText
 from jinja2 import Template
 from kernel.log import logger
+from config.settings import MAIL_HOST, MSG_FROM, FIRST_DEFAULT_MSG_TO, SECOND_DEFAULT_MSG_TO
 
 
 __author__ = 'José Ignacio Carretero'
@@ -28,8 +29,8 @@ __author__ = 'José Ignacio Carretero'
 
 class Mailer:
     subject = "Your FIWARE Lab account has been created"
-    msg_from = "noanswer@admtools.lab.fiware.org"
-    mail_host = "admtools.lab.fiware.org"
+    msg_from = MSG_FROM
+    mail_host = MAIL_HOST
     message_text = """
     Your account  in FIWARE Lab -- https://cloud.lab.fiware.org -- has been created
 
@@ -54,7 +55,7 @@ class Mailer:
         try:
             s = smtplib.SMTP(Mailer.mail_host)
             s.sendmail(Mailer.msg_from,
-                       [to, "joseignacio.carretero@fiware.org", "fernando.lopez@fiware.org"], msg.as_string())
+                       [to, FIRST_DEFAULT_MSG_TO, SECOND_DEFAULT_MSG_TO], msg.as_string())
 
             s.quit()
             logger.info("Sent mail to %s" % to)
@@ -63,4 +64,4 @@ class Mailer:
 
 
 if __name__ == "__main__":
-    Mailer().send("joseignacio.carretero@fiware.org", "passw0rd")
+    Mailer().send(FIRST_DEFAULT_MSG_TO, "passw0rd")

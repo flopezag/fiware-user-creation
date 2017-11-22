@@ -20,6 +20,8 @@ import os
 from config.settings import LOG_HOME, LOG_LEVEL
 from config.constants import LOG_FILE
 
+__author__ = 'Fernando López'
+
 
 filename = os.path.join(LOG_HOME, LOG_FILE)
 

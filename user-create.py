@@ -26,6 +26,7 @@ __author__ = 'Fernando López'
 
 if __name__ == "__main__":
     jira = MyJiraConnector()
+    create_ops = CreateOps(jira_server=jira)
 
     logger.info(SHEET_ID)
 
@@ -34,7 +35,4 @@ if __name__ == "__main__":
 
     result = CreateOps.filter_lists(list1=filtered_sheet_data, list2=filtered_jira_data)
 
-    # Next steps:
-    # 1.- create user accounts for each of the elements of the result
-    # 2.- close the corresponding ticket.
-    map(CreateOps.create_user, result)
+    map(create_ops.create_user, result)

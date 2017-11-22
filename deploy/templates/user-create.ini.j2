@@ -32,3 +32,33 @@ password: {{ jira_password }}
 
 [log]
 loglevel: {{ log_level }}
+
+[openstack]
+# OpenStack Admin data in order to create the user accounts
+# Set OpenStack Auth URL
+os_auth_url: {{ os_auth_url }}
+
+# Set OpenStack Admin username
+os_username: {{ os_username }}
+
+# Set OpenStack Admin password
+os_password: {{ os_password }}
+
+# Set OpenStack Admin project name
+os_project_name: {{ os_project_name }}
+
+# Set OpenStack Admin domain ID
+os_user_domain_id: {{ os_user_domain_id }}
+
+# Set OpenStack Admin project ID
+os_project_id: {{ os_project_id }}
+
+# Set OpenStack Admin project domain ID
+os_project_domain_id: {{ os_project_domain_id }}
+
+[mailer]
+# Configuration data to send emails
+mail_host: {{ mail_host }}
+msg_from: {{ msg_from }}
+first_default_msg_to: {{ first_default_msg_to }}
+second_default_msg_to: {{ second_default_msg_to }}

@@ -26,7 +26,7 @@ from unittest import TestCase
 from kernel.createops import CreateOps
 import re
 
-__author__ = 'fla'
+__author__ = 'Fernando López'
 
 """ Class to test the interaction with redis
 """

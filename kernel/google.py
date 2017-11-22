@@ -35,6 +35,8 @@ try:
 except ImportError:
     flags = None
 
+__author__ = 'Fernando López'
+
 
 def get_credentials(api):
     """Gets valid user credentials from storage.

@@ -83,8 +83,8 @@ if Config.sections():
     USER_CREDENTIAL = os.path.join(cfg_dir, google_section['usercredential'])
     SHEET_ID = google_section['sheetid']
     SERVICE_ACCOUNT_KEY = google_section['serviceaccountkey']
-
     GOOGLE_CREDENTIAL = google_section['googlecredential']
+
     # Log section
     log_section = config_section_map("log")
 
@@ -96,6 +96,25 @@ if Config.sections():
     JIRA_USER = jira_section['user']
     JIRA_PASSWORD = jira_section['password']
     JIRA_SERVER = jira_section['server']
+
+    # OpenStack section
+    openstack_section = config_section_map("openstack")
+
+    OS_AUTH_URL = openstack_section['os_auth_url']
+    OS_USERNAME = openstack_section['os_username']
+    OS_PASSWORD = openstack_section['os_password']
+    OS_PROJECT_NAME = openstack_section['os_project_name']
+    OS_USER_DOMAIN_ID = openstack_section['os_user_domain_id']
+    OS_PROJECT_ID = openstack_section['os_project_id']
+    OS_PROJECT_DOMAIN_ID = openstack_section['os_project_domain_id']
+
+    # Mailer section
+    mailer_section = config_section_map("mailer")
+
+    MAIL_HOST = mailer_section['mail_host']
+    MSG_FROM = mailer_section['msg_from']
+    FIRST_DEFAULT_MSG_TO = mailer_section['first_default_msg_to']
+    SECOND_DEFAULT_MSG_TO = mailer_section['second_default_msg_to']
 
 else:
     msg = '\nERROR: There is not defined USER_CREATE_SETTINGS_FILE environment variable ' \

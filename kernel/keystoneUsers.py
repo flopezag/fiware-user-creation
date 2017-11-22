@@ -21,6 +21,8 @@ from keystoneauth1.identity import v3
 from keystoneauth1 import session
 from keystoneclient.v3 import client
 import keystoneauth1
+from config.settings import OS_AUTH_URL, OS_USERNAME, OS_PASSWORD, OS_PROJECT_NAME, \
+    OS_USER_DOMAIN_ID, OS_PROJECT_DOMAIN_ID, OS_PROJECT_ID
 from datetime import datetime
 from mailer import Mailer
 from kernel.log import logger
@@ -58,8 +60,9 @@ class KeystoneUsers:
         self.project_domain_id = config.project_domain_id
         self.project_id = config.project_id
 
-        logger.info("KeystoneUsers created")
         self.__connect_keystone_lib()
+
+        logger.info("KeystoneUsers created")
 
     def __connect_keystone_lib(self):
         self.auth = v3.Password(auth_url=self.auth_url, username=self.username,
@@ -141,7 +144,7 @@ class TrialUser:
     def __init__(self, user_name, region):
         self.user_name = user_name
         self.region = region
-        password = self.__password__()
+        self.password = self.__password__()
 
     @staticmethod
     def __password__():
@@ -153,15 +156,26 @@ class TrialUser:
         return result
 
     def new_user(self):
-        self.password = self.__password__()
         user_data = self.__create_user__()
         if user_data is not None:
             self.__send_mail__()
         return user_data
 
     def __create_user__(self):
-        keystone_users = KeystoneUsers()
+        config_data = {
+            "auth_url": OS_AUTH_URL,
+            "username": OS_USERNAME,
+            "password": OS_PASSWORD,
+            "project_name": OS_PROJECT_NAME,
+            "user_domain_id": OS_USER_DOMAIN_ID,
+            "project_id": OS_PROJECT_ID,
+            "project_domain_id": OS_PROJECT_DOMAIN_ID
+        }
+
+        keystone_users = KeystoneUsers(config=config_data)
+
         existing_user = keystone_users.get_user(self.user_name)
+
         if existing_user is not None:
             logger.warn("USER ALREADY EXISTS!!")
             return None

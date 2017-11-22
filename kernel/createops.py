@@ -20,11 +20,16 @@
 import re
 
 from kernel.google import get_service
+from kernel.keystoneUsers import TrialUser
+from kernel.log import logger
 
 __author__ = 'Fernando López'
 
 
 class CreateOps(object):
+    def __init__(self, jira_server):
+        self.jira_server = jira_server
+
     @staticmethod
     def get_spreadsheet_data(id_sheet):
         service = get_service('sheets')
@@ -81,14 +86,14 @@ class CreateOps(object):
 
         return result_data
 
-    @staticmethod
-    def create_user(element):
+    def create_user(self, element):
         issue_ticket = element[0]
 
         issue_data = element[1]
 
-        print("Email: ({})".format(issue_data[1]))
-        print("Region: ({})".format(issue_data[2]))
-        print("JIRA ticket: ({})".format(issue_ticket))
+        logger.info("Detected a ticket ({}) with an user ({}) and a region ({}) to be resolved"
+                    .format(issue_ticket, issue_data[1], issue_data[2]))
 
-        # jira.close_jira_ticket(issue_ticket)
+        TrialUser(issue_data[1], issue_data[2]).new_user()
+
+        self.jira_server.close_jira_ticket(issue_ticket)
