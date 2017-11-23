@@ -1,32 +1,37 @@
-# Prerequisites
+# Issue template
 
-Please answer the following questions for yourself before submitting an issue. **YOU MAY DELETE THE PREREQUISITES SECTION.**
+## Prerequisites
 
-- [ ] I am running the latest version
-- [ ] I checked the documentation and found no answer
-- [ ] I checked to make sure that this issue has not already been filed
-- [ ] I'm reporting the issue to the correct repository (for multi-repository projects)
+Please answer the following questions for yourself before submitting an issue. 
+**YOU MAY DELETE THE PREREQUISITES SECTION.**
 
-# Expected Behavior
+* [ ] I am running the latest version
+* [ ] I checked the documentation and found no answer
+* [ ] I checked to make sure that this issue has not already been filed
+* [ ] I'm reporting the issue to the correct repository (for multi-repository 
+  projects)
+
+## Expected Behavior
 
 Please describe the behavior you are expecting.
 
-# Current Behavior
+## Current Behavior
 
 What is the current behavior?
 
-# Failure Information (for bugs)
+## Failure Information (for bugs)
 
-Please help provide information about the failure if this is a bug. If it is not a bug, please remove the rest of this template.
+Please help provide information about the failure if this is a bug. If it is 
+not a bug, please remove the rest of this template.
 
-## Steps to Reproduce
+### Steps to Reproduce
 
 Please provide detailed steps for reproducing the issue.
 
 1. step 1
-2. step 2
-3. you get it...
+1. step 2
+1. you get it...
 
-## Failure Logs
+### Failure Logs
 
 Please include any relevant log snippets or files here.

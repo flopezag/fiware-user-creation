@@ -23,7 +23,6 @@ the Google Forms used yo created new FIWARE Lab user account and the
 information from the JIRA tickets in order to contrast the information from 
 two sources previously to create the new account.
 
-[Top](#fiware_lab_user_creation_service)
 
 ## Overall description
 
@@ -69,7 +68,6 @@ a confirmed email in the Google Spreadsheet whose ticket in JIRA is still
 open. In that case, it means that the user was not created and proceed with 
 the creation of the user in the OpenStack Keystone service.
 
-[Top](#fiware_lab_user_creation_service)
 
 ## Build and Install
 
@@ -95,7 +93,6 @@ code do not need installation.
 1. Execute the script 'source config.sh'.
 1. With root user, execute the command 'cp ./config/user-create.logrotate /etc/logrotate.d/user-create'.
 
-[Top](#fiware_lab_user_creation_service)
 
 ## Running
 
@@ -120,14 +117,12 @@ Last but not least, the service is added into the
 of the machine in order to execute the service each 30 minutes to check if a 
 new account is needed to be created.
 
-[Top](#fiware_lab_user_creation_service)
 
 ## Deployment
 
 There is a specific option to deploy this service in a host. Take a look to 
 the content of [deploy](deploy/README.md) directory
 
-[Top](#fiware_lab_user_creation_service)
 
 ## Testing
 
@@ -159,18 +154,12 @@ Now, you can run the tests, simply execute the commands:
     tox
 
 
-[Top](#fiware_lab_user_creation_service)
-
 ## Support
 
 The support of this service is under github. You can create your [issues](https://github.com/flopezag/fiware-user-creation/issues/new)
 and they will be resolved by the development team in the following sprint.
 
-[Top](#fiware_lab_user_creation_service)
 
 ## License
 
 \(c) 2017 FIWARE Foundation, e.V., Apache License 2.0
-
-[Top](#fiware_lab_user_creation_service)
-

@@ -16,12 +16,12 @@ the configuration of the proper crontab service.
 
 * Create virtualenv and activate it:
 
-    virtualenv -p python2.7 $NAME_VIRTUAL_ENV
-    source $NAME_VIRTUAL_ENV/bin/activate
+      virtualenv -p python2.7 $NAME_VIRTUAL_ENV
+      source $NAME_VIRTUAL_ENV/bin/activate
 
 * Install the requirements:
 
-    pip install -r requirements.txt
+      pip install -r requirements.txt
 
 * Edit the setup variables to fit your setup. Open `vars/data.yml` and setup
   the variables as explained there.
@@ -29,7 +29,7 @@ the configuration of the proper crontab service.
 * One all the variables are in place you should now be able to deploy and 
   configure the service. Just run the following command:
 
-    ansible-playbook -vvvv -i inventory.yml \
-    --private-key=(Key pair to access to the instance) \
-    deploy_user-create.yml
+      ansible-playbook -vvvv -i inventory.yml \
+      --private-key=(Key pair to access to the instance) \
+      deploy_user-create.yml
 
