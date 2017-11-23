@@ -5,7 +5,7 @@ site_description: Script to create automatically FIWARE Lab user accounts
 docs_dir: 'docs'
 theme: readthedocs
 pages:
-- Introduction: index.md
+- Home: index.md
 - Deploy: deploy.md
 - Google Sheets Code: script.md
 
