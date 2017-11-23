@@ -5,7 +5,9 @@ site_description: Script to create automatically FIWARE Lab user accounts
 docs_dir: 'docs'
 theme: readthedocs
 pages:
-- Home: ../README.md
+- Home: index.md
+- Deploy: deploy/README.md
+- Google Sheets Code: scripts/README.md
 
 markdown_extensions: [toc,fenced_code]
 extra_css: ["https://fiware.org/style/fiware_readthedocs.css"]
