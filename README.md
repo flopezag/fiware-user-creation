@@ -3,6 +3,7 @@
 [![Dependency Status](https://gemnasium.com/badges/github.com/flopezag/fiware-user-creation.svg)](https://gemnasium.com/github.com/flopezag/fiware-user-creation)
 [![Build Status](https://travis-ci.org/flopezag/fiware-user-creation.svg?branch=master)](https://travis-ci.org/flopezag/fiware-user-creation)
 [![Coverage Status](https://coveralls.io/repos/github/flopezag/fiware-user-creation/badge.svg)](https://coveralls.io/github/flopezag/fiware-user-creation)
+[![Documentation Status](https://readthedocs.org/projects/fiware-user-creation/badge/?version=latest)](http://fiware-user-creation.readthedocs.io/en/latest/?badge=latest)
 
 * [Introduction](#introduction)
 * [Overall description](#overall_description)

@@ -33,13 +33,16 @@
 
     # Setting up the environment
     - name: distribute your cloud credentials into a file
-      template: src=templates/.openrc.j2 dest=/home/ubuntu/.openrc mode=0664
+      template: src=templates/.openrc.j2 dest=/home/fla/.openrc mode=0664
 
     # Create logs directory (initially empty)
-    - name: Create the logs directory.
-      shell: mkdir fiware.d
-      args:
-        chdir: /etc
+    #- name: Create the logs directory.
+    #  shell: mkdir fiware.d
+    #  args:
+    #    chdir: /etc
+
+    # Problems:
+    # pip is not updated
 
     - name: distribute the user-create.ini file
       template: src=templates/user-create.ini.j2 dest=/etc/fiware.d/user-create.ini mode=0664
@@ -47,11 +50,11 @@
     # Clone repository
     - git:
         repo: https://github.com/flopezag/fiware-user-creation.git
-        dest: /home/ubuntu/fiware-user-creation
+        dest: /home/fla/fiware-user-creation
 
     # Change to develop branch
     - name: Change the working directory to fiware-user-creation/ before changing the branch to develop.
-      shell: git checkout deploy
+      shell: git checkout develop
       args:
         chdir: fiware-user-creation/
 

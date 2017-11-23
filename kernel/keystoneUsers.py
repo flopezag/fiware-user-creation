@@ -52,13 +52,13 @@ class KeystoneUsers:
         if config is None:
             config = KeystoneConfig()
 
-        self.auth_url = config.auth_url
-        self.username = config.username
-        self.password = config.password
-        self.project_name = config.project_name
-        self.user_domain_id = config.user_domain_id
-        self.project_domain_id = config.project_domain_id
-        self.project_id = config.project_id
+        self.auth_url = config['auth_url']
+        self.username = config['username']
+        self.password = config['password']
+        self.project_name = config['project_name']
+        self.user_domain_id = config['user_domain_id']
+        self.project_domain_id = config['project_domain_id']
+        self.project_id = config['project_id']
 
         self.__connect_keystone_lib()
 
@@ -189,7 +189,7 @@ class TrialUser:
         project_data = keystone_users.create_project(project_name, 'Generated project')
         user_data = keystone_users.create_user(self.user_name, project_data.id, self.password)
         keystone_users.set_role_assignments_for_user(user_data.id)
-        keystone_users.add_user_to_region(user_data, region)
+        keystone_users.add_user_to_region(user_data, self.region)
 
         logger.info("user %s created in region %s" % (self.user_name, self.region))
         return user_data

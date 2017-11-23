@@ -1,0 +1,11 @@
+site_name: FIWARE Lab User Creation
+repo_url: https://github.com/flopezag/fiware-user-creation.git
+edit_uri: edit/master/docs
+site_description: Script to create automatically FIWARE Lab user accounts
+docs_dir: 'docs'
+theme: readthedocs
+pages:
+- Home: ../README.md
+
+markdown_extensions: [toc,fenced_code]
+extra_css: ["https://fiware.org/style/fiware_readthedocs.css"]

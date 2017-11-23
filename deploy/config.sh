@@ -86,7 +86,7 @@ if [ "$result" == "" ]; then
     touch /tmp/cronlock
 
     echo "# FIWARE User Create process" | crontab -
-    (crontab -l; echo "* /2 * * * "${working_directory}"/user-create.py --noauth_local_webserver") | crontab -
+    (crontab -l; echo "0 * * * * "${working_directory}"/user-create.py --noauth_local_webserver") | crontab -
 
     rm -f /tmp/cronlock
 
@@ -99,7 +99,7 @@ else
     if [ "$line" == "" ]; then
         (crontab -l; echo "") | crontab -
         (crontab -l; echo "# FIWARE User Create process") | crontab -
-        (crontab -l; echo "* /2 * * * "${working_directory}"/user-create.py.py --noauth_local_webserver") | crontab -
+        (crontab -l; echo "0 * * * * "${working_directory}"/user-create.py.py --noauth_local_webserver") | crontab -
     fi
 
     rm -f /tmp/cronlock
