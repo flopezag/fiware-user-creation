@@ -75,7 +75,7 @@ the creation of the user in the OpenStack Keystone service.
 
 The following software must be installed:
 
-* Python 2.7
+* Python 3.7
 * pip
 * virtualenv
 
@@ -101,7 +101,7 @@ just executing:
 
     python user-create.py
 
-And it will be executed in order to create the corresponding account. Keep in 
+And  it will be executed in order to create the corresponding account. Keep in 
 mind that you have to be inside a previously defined virtual environment.
 
 The ``config.sh`` file that you can find in the [deploy](deploy) folder is 
@@ -162,4 +162,4 @@ and they will be resolved by the development team in the following sprint.
 
 ## License
 
-\(c) 2017 FIWARE Foundation, e.V., Apache License 2.0
+\(c) 2017-2019 FIWARE Foundation, e.V., Apache License 2.0

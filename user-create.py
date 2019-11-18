@@ -35,4 +35,4 @@ if __name__ == "__main__":
 
     result = CreateOps.filter_lists(list1=filtered_sheet_data, list2=filtered_jira_data)
 
-    map(create_ops.create_user, result)
+    list(map(create_ops.create_user, result))

@@ -16,9 +16,10 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 ##
-import os
 
-from apiclient.discovery import build
+from os.path import join, exists
+from os import makedirs
+from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import client
 from oauth2client import tools
@@ -58,16 +59,16 @@ def get_credentials(api):
              'analytics': 'https://www.googleapis.com/auth/analytics.readonly',
              'analyticsreporting': 'https://www.googleapis.com/auth/analytics.readonly'}
 
-    credential_folder = os.path.join(CODE_HOME, CREDENTIAL_DIR)
+    credential_folder = join(CODE_HOME, CREDENTIAL_DIR)
     logger.debug("Credential dir: {}".format(credential_folder))
 
-    if not os.path.exists(credential_folder):
+    if not exists(credential_folder):
         try:
-            os.makedirs(credential_folder)
-        except OSError as e:
-            logger.error("Unable to create the corresponding directory: {}".format(e.message))
+            makedirs(credential_folder)
+        except OSError as error:
+            logger.error("Unable to create the corresponding directory: {}".format(error))
 
-    credential_path = os.path.join(credential_folder, GOOGLE_CREDENTIAL)
+    credential_path = join(credential_folder, GOOGLE_CREDENTIAL)
 
     if api == 'sheets':
         store = Storage(credential_path)
@@ -80,7 +81,7 @@ def get_credentials(api):
             credentials = tools.run_flow(flow, store, flags)
     else:
         credentials = ServiceAccountCredentials.from_json_keyfile_name(
-            os.path.join(SERVICE_ACCOUNT_KEY_HOME, SERVICE_ACCOUNT_KEY),
+            join(SERVICE_ACCOUNT_KEY_HOME, SERVICE_ACCOUNT_KEY),
             scopes=scope[api])
 
     return credentials
@@ -90,7 +91,7 @@ def get_service(api_name):
     logger.info("Get Google service for API {}".format(api_name))
 
     service = {'sheets': 'v4', 'analytics': 'v3', 'analyticsreporting': 'v4'}
-    discoveryServiceUrl = {
+    discovery_service_url = {
         'sheets': 'https://sheets.googleapis.com/$discovery/rest?version=v4',
         'analytics': 'none',
         'analyticsreporting': 'https://analyticsreporting.googleapis.com/$discovery/rest'
@@ -113,7 +114,7 @@ def get_service(api_name):
             result = build(serviceName=api_name,
                            version=service[api_name],
                            http=http_auth,
-                           discoveryServiceUrl=discoveryServiceUrl[api_name],
+                           discoveryServiceUrl=discovery_service_url[api_name],
                            cache_discovery=False)
 
         return result

@@ -16,17 +16,18 @@
 # under the License.
 ##
 import logging
-import os
+from os.path import join, exists
+from os import makedirs
 from config.settings import LOG_HOME, LOG_LEVEL
 from config.constants import LOG_FILE
 
 __author__ = 'Fernando López'
 
 
-filename = os.path.join(LOG_HOME, LOG_FILE)
+filename = join(LOG_HOME, LOG_FILE)
 
-if not os.path.exists(LOG_HOME):
-    os.makedirs(LOG_HOME)
+if not exists(LOG_HOME):
+    makedirs(LOG_HOME)
 
 logging.basicConfig(filename=filename,
                     format='%(asctime)s|%(levelname)s:%(message)s',

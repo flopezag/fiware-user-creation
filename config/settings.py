@@ -19,7 +19,8 @@
 
 from configparser import ConfigParser
 import logging
-import os.path
+from os import environ
+from os.path import dirname, join, abspath
 
 __author__ = 'Fernando López'
 
@@ -40,12 +41,11 @@ name = 'user-create'
 
 cfg_dir = "/etc/fiware.d"
 
-if os.environ.get("USER_CREATE_SETTINGS_FILE"):
-    cfg_filename = os.environ.get("USER_CREATE_SETTINGS_FILE")
-    cfg_dir = os.path.dirname(cfg_filename)
-
+cfg_filename = environ.get("USER_CREATE_SETTINGS_FILE")
+if cfg_filename:
+    cfg_dir = dirname(cfg_filename)
 else:
-    cfg_filename = os.path.join(cfg_dir, '%s.ini' % name)
+    cfg_filename = join(cfg_dir, '%s.ini' % name)
 
 Config = ConfigParser()
 
@@ -80,7 +80,7 @@ if Config.sections():
     # Data from Google section
     google_section = config_section_map("google")
 
-    USER_CREDENTIAL = os.path.join(cfg_dir, google_section['usercredential'])
+    USER_CREDENTIAL = join(cfg_dir, google_section['usercredential'])
     SHEET_ID = google_section['sheetid']
     SERVICE_ACCOUNT_KEY = google_section['serviceaccountkey']
     GOOGLE_CREDENTIAL = google_section['googlecredential']
@@ -125,6 +125,6 @@ else:
 
 # Settings file is inside Basics directory, therefore I have to go back to the parent directory
 # to have the Code Home directory
-CODE_HOME = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LOG_HOME = os.path.join(CODE_HOME, 'logs')
-SERVICE_ACCOUNT_KEY_HOME = os.path.join(CODE_HOME, 'config')
+CODE_HOME = dirname(dirname(abspath(__file__)))
+LOG_HOME = join(CODE_HOME, 'logs')
+SERVICE_ACCOUNT_KEY_HOME = join(CODE_HOME, 'config')

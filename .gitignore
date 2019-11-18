@@ -103,6 +103,7 @@ deploy/env
 
 # IDE
 .idea/
+.vscode/
 
 # Specific credential files
 .credentials/*.json

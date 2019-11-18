@@ -17,8 +17,7 @@
 # under the License.
 ##
 
-import re
-
+from re import compile
 from kernel.google import get_service
 from kernel.keystoneUsers import TrialUser
 from kernel.log import logger
@@ -44,11 +43,11 @@ class CreateOps(object):
 
     @staticmethod
     def filter_google_sheet(data):
-        aux = map(lambda x: [x[1], x[2], x[3], x[5]], data)
+        aux = list(map(lambda x: [x[1], x[2], x[3], x[5]], data))
 
-        aux1 = filter(lambda x: x[len(x) - 1] == u'1', aux)
+        aux1 = list(filter(lambda x: x[len(x) - 1] == u'1', aux))
 
-        filter_values = map(lambda x: [x[0], x[1], x[2]], aux1)
+        filter_values = list(map(lambda x: [x[0], x[1], x[2]], aux1))
 
         return filter_values
 
@@ -57,7 +56,7 @@ class CreateOps(object):
         issue_list = []
 
         pattern = r".*:[ ]*(.*)"
-        compiled_re = re.compile(pattern)
+        compiled_re = compile(pattern)
 
         for issue in issues_in_project:
             # temp = map(lambda x: compiled_re.search(x).group(1), issue.fields.description.split('\r\n'))
@@ -69,7 +68,7 @@ class CreateOps(object):
 
     @staticmethod
     def extract_description_info(compiled_re, description):
-        result = map(lambda x: compiled_re.search(x).group(1), description.split('\r\n'))
+        result = list(map(lambda x: compiled_re.search(x).group(1), description.split('\r\n')))
 
         return result
 
@@ -79,7 +78,7 @@ class CreateOps(object):
 
         for aux in list2:
             value = aux[1]
-            temp = filter(lambda x: x == value, list1)
+            temp = list(filter(lambda x: x == value, list1))
 
             if temp:
                 result_data.append([aux[0], temp[0]])

@@ -17,7 +17,7 @@
 # under the License.
 ##
 
-import smtplib
+from smtplib import SMTP, SMTPException
 from email.mime.text import MIMEText
 from jinja2 import Template
 from kernel.log import logger
@@ -28,39 +28,39 @@ __author__ = 'José Ignacio Carretero'
 
 
 class Mailer:
-    subject = "Your FIWARE Lab account has been created"
-    msg_from = MSG_FROM
-    mail_host = MAIL_HOST
-    message_text = """
-    Your account  in FIWARE Lab -- https://cloud.lab.fiware.org -- has been created
-
-    Username: {{to}}
-    Password: {{password}}
-
-    Please, change your password in your 1st access. You can send your questions to  fiware-lab-help@lists.fi-ware.org
-
-    Best Regards,
-    FIWARE Lab Team
-    """
-
     def __init__(self):
-        pass
+        self.subject = "Your FIWARE Lab account has been created"
+        self.msg_from = MSG_FROM
+        self.mail_host = MAIL_HOST
+        self.message_text = """
+        Your account  in FIWARE Lab -- https://cloud.lab.fiware.org -- has been created
+
+        Username: {{to}}
+        Password: {{password}}
+
+        Please, change your password in your first access. You can send your questions 
+        to fiware-lab-help@lists.fi-ware.org
+
+        Best Regards,
+        FIWARE Lab Team
+        """
 
     def send(self, to, password):
-        template = Template(Mailer.message_text)
+        template = Template(self.message_text)
         msg = MIMEText(template.render(to=to, password=password))
-        msg['Subject'] = Mailer.subject
-        msg['From'] = Mailer.msg_from
+        msg['Subject'] = self.subject
+        msg['From'] = self.msg_from
         msg['To'] = to
         try:
-            s = smtplib.SMTP(Mailer.mail_host)
-            s.sendmail(Mailer.msg_from,
+            s = SMTP(self.mail_host)
+            s.sendmail(self.msg_from,
                        [to, FIRST_DEFAULT_MSG_TO, SECOND_DEFAULT_MSG_TO], msg.as_string())
 
             s.quit()
             logger.info("Sent mail to %s" % to)
-        except Exception:
+        except SMTPException as error:
             logger.warning("Problem sending email to %s" % to)
+            logger.warning("%s" % error)
 
 
 if __name__ == "__main__":

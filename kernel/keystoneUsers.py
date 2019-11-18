@@ -20,16 +20,16 @@
 from keystoneauth1.identity import v3
 from keystoneauth1 import session
 from keystoneclient.v3 import client
-import keystoneauth1
+from keystoneauth1.exceptions.http import NotFound
 from config.settings import OS_AUTH_URL, OS_USERNAME, OS_PASSWORD, OS_PROJECT_NAME, \
     OS_USER_DOMAIN_ID, OS_PROJECT_DOMAIN_ID, OS_PROJECT_ID
 from datetime import datetime
-from mailer import Mailer
+from kernel.mailer import Mailer
 from kernel.log import logger
-import os
-import string
-import random
-import sys
+from os import environ
+from string import ascii_lowercase, digits
+from random import choice
+from sys import argv
 
 
 __author__ = 'José Ignacio Carretero'
@@ -37,13 +37,13 @@ __author__ = 'José Ignacio Carretero'
 
 class KeystoneConfig:
     def __init__(self):
-        d = {"auth_url": os.environ.get('OS_AUTH_URL'),
-             "username": os.environ.get('OS_USERNAME'),
-             "password": os.environ.get('OS_PASSWORD'),
-             "project_name": os.environ.get('OS_PROJECT_NAME'),
-             "user_domain_id": os.environ.get('OS_USER_DOMAIN_ID'),
-             "project_id": os.environ.get('OS_PROJECT_ID'),
-             "project_domain_id": os.environ.get('OS_PROJECT_DOMAIN_ID')}
+        d = {"auth_url": environ.get('OS_AUTH_URL'),
+             "username": environ.get('OS_USERNAME'),
+             "password": environ.get('OS_PASSWORD'),
+             "project_name": environ.get('OS_PROJECT_NAME'),
+             "user_domain_id": environ.get('OS_USER_DOMAIN_ID'),
+             "project_id": environ.get('OS_PROJECT_ID'),
+             "project_domain_id": environ.get('OS_PROJECT_DOMAIN_ID')}
         self.__dict__.update(d)
 
 
@@ -60,11 +60,11 @@ class KeystoneUsers:
         self.project_domain_id = config['project_domain_id']
         self.project_id = config['project_id']
 
-        self.__connect_keystone_lib()
+        self.__connect_keystone_lib__()
 
         logger.info("KeystoneUsers created")
 
-    def __connect_keystone_lib(self):
+    def __connect_keystone_lib__(self):
         self.auth = v3.Password(auth_url=self.auth_url, username=self.username,
                                 password=self.password, project_name=self.project_name,
                                 user_domain_id=self.user_domain_id, project_domain_id=self.project_domain_id,
@@ -75,14 +75,13 @@ class KeystoneUsers:
 
     @staticmethod
     def __get_resource__(manager, resource_name_or_id):
-        resource_name_or_id = resource_name_or_id.decode('utf-8', 'strict')
         result = None
         try:
             result = manager.get(resource_name_or_id)
-        except keystoneauth1.exceptions.http.NotFound:
+        except NotFound:
             try:
                 result = manager.find(name=resource_name_or_id)
-            except keystoneauth1.exceptions.http.NotFound:
+            except NotFound:
                 pass
         return result
 
@@ -96,16 +95,10 @@ class KeystoneUsers:
         return self.__get_resource__(self.keystone.roles, role_id_or_name)
 
     def create_project(self, name, description):
-        name = name.decode('utf-8', 'strict')
-        description = description.decode('utf-8', 'strict')
         return self.keystone.projects.create(name=name, description=description,
                                              enabled=True, domain=self.project_domain_id)
 
     def create_user(self, name, project, password):
-        d = datetime.now()
-        name = name.decode('utf-8', 'strict')
-        project = project.decode('utf-8', 'strict')
-        password = password.decode('utf-8', 'strict')
         description = name + ' cloud user'
         email = name
         trial_started_at = datetime.now().strftime("%Y-%m-%d")
@@ -141,19 +134,10 @@ class KeystoneUsers:
 
 
 class TrialUser:
-    def __init__(self, user_name, region):
-        self.user_name = user_name
-        self.region = region
-        self.password = self.__password__()
-
-    @staticmethod
-    def __password__():
-        return TrialUser.rand_str(20)
-
-    @staticmethod
-    def rand_str(number):
-        result = ''.join([random.choice(string.lowercase + string.digits) for i in xrange(number)])
-        return result
+    def __init__(self, trial_user_name, trial_region):
+        self.user_name = trial_user_name
+        self.region = trial_region
+        self.password = ''.join([choice(ascii_lowercase + digits) for _ in range(20)])
 
     def new_user(self):
         user_data = self.__create_user__()
@@ -182,7 +166,7 @@ class TrialUser:
 
         region_filters = keystone_users.get_endpoint_group_for_region(self.region)
         if len(region_filters) == 0:
-            logger.warn("NO FILTERS FOR REGION "+self.region)
+            logger.warn("NO FILTERS FOR REGION " + self.region)
             return None
 
         project_name = self.user_name + " cloud"
@@ -200,10 +184,11 @@ class TrialUser:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        exit(1)
-
-    user_name = sys.argv[1]
-    region = sys.argv[2]
+    if len(argv) != 3:
+        user_name = input("User name: ")
+        region = input("Region: ")
+    else:
+        user_name = argv[1]
+        region = argv[2]
 
     TrialUser(user_name, region).new_user()
