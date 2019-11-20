@@ -6,7 +6,7 @@ requirements_list = [str(ir.req) for ir in install_reqs]
 
 setup(
     name='fiware-user-creation',
-    version='1.1.0',
+    version='1.2.0',
     packages=find_packages(exclude=['tests*']),
     install_requires=requirements_list,
     url='https://github.com/flopezag/fiware-user-creation',
