@@ -7,4 +7,4 @@ configparser==4.0.2
 jira==2.0.0
 python-openstackclient==4.0.0
 Jinja2==2.10.3
-keystoneauth1==3.17.1
+keystoneauth1==3.18.0
