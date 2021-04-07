@@ -1,3 +1,3 @@
 # Project executed with Python3.7
 # Use virtualenv -p python3.7 env
-ansible==2.8.5
+ansible==2.10.0
