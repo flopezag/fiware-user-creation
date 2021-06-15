@@ -110,3 +110,6 @@ deploy/env
 
 # Temporal Ansible data
 deploy/*.retry
+
+# Xunit result file
+xunit.xml

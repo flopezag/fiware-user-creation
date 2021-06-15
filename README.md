@@ -1,13 +1,13 @@
 # FIWARE Lab user creation service
 
 [![License badge](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Dependency Status](https://gemnasium.com/badges/github.com/flopezag/fiware-user-creation.svg)](https://gemnasium.com/github.com/flopezag/fiware-user-creation)
-[![Build Status](https://travis-ci.org/flopezag/fiware-user-creation.svg?branch=master)](https://travis-ci.org/flopezag/fiware-user-creation)
+[![Dependabot Status][dependabot-badge]][dependabot]		
+![Build Status](https://github.com/flopezag/fiware-user-creation/actions/workflows/ci.yaml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/flopezag/fiware-user-creation/badge.svg)](https://coveralls.io/github/flopezag/fiware-user-creation)
 [![Documentation Status](https://readthedocs.org/projects/fiware-user-creation/badge/?version=latest)](http://fiware-user-creation.readthedocs.io/en/latest/?badge=latest)
 
 * [Introduction](#introduction)
-* [Overall description](#overall_description)
+* [Overall description](#overall-description)
 * [Build and Install](#build-and-install)
 * [Running](#running)
 * [Deployment](#deployment)
@@ -19,7 +19,7 @@
 ## Introduction
 
 Script to create automatically FIWARE Lab users taking the information from 
-the Google Forms used yo created new FIWARE Lab user account and the 
+the Google Forms used, it is created new FIWARE Lab user account, and the 
 information from the JIRA tickets in order to contrast the information from 
 two sources previously to create the new account.
 
@@ -75,14 +75,14 @@ the creation of the user in the OpenStack Keystone service.
 
 The following software must be installed:
 
-* Python 3.7
+* Python 3.9
 * pip
 * virtualenv
 
 
 ### Installation
 
-The recommend installation method is using a virtualenv. Actually, the 
+The recommended installation method is using a virtualenv. Actually, the 
 installation process is only about the python dependencies, because the python 
 code do not need installation.
 
@@ -101,8 +101,9 @@ just executing:
 
     python user-create.py
 
-And  it will be executed in order to create the corresponding account. Keep in 
-mind that you have to be inside a previously defined virtual environment.
+The result of the execution is the creation of the corresponding user accounts
+pending in the Google Sheet and taking into account the Jira pending tickets.
+Keep in mind that you have to be inside a previously defined virtual environment.
 
 The ``config.sh`` file that you can find in the [deploy](deploy) folder is 
 used in order to allow the automatic execution of the python script just 
@@ -110,7 +111,7 @@ adding the corresponding header to the file:
 
     #!/usr/bin/env /env/bin/python
 
-Where env is the name of your virtual environment. 
+The folder env is the name of your virtual environment folder. 
 
 Last but not least, the service is added into the 
 [crontab](https://manpages.debian.org/jessie/cron/crontab.5.en.html) service 
@@ -145,7 +146,7 @@ different environments:
 * The first one, to test the service using [nosetests](http://nose.readthedocs.io/en/latest/).
 * The second one, to check the python coding style using [pycodestyle](https://pycodestyle.readthedocs.io/en/latest/)
 
-First of all, you need to install the tool with the following commands:
+First, you need to install the tool with the following commands:
 
     pip install tox
 
@@ -156,10 +157,10 @@ Now, you can run the tests, simply execute the commands:
 
 ## Support
 
-The support of this service is under github. You can create your [issues](https://github.com/flopezag/fiware-user-creation/issues/new)
+The support of this service is under GitHub. You can create your [issues](https://github.com/flopezag/fiware-user-creation/issues/new)
 and they will be resolved by the development team in the following sprint.
 
 
 ## License
 
-\(c) 2017-2019 FIWARE Foundation, e.V., Apache License 2.0
+\(c) 2017-2021 FIWARE Foundation, e.V., Apache License 2.0
