@@ -38,7 +38,7 @@ class Mailer:
         Username: {{to}}
         Password: {{password}}
 
-        Please, change your password in your first access. You can send your questions 
+        Please, change your password in your first access. You can send your questions
         to fiware-lab-help@lists.fi-ware.org
 
         Best Regards,

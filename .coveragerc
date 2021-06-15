@@ -6,6 +6,4 @@ omit =
 include =
     kernel/*.py
     config/*.py
-
-[report]
 ignore_errors = True
