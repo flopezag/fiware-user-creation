@@ -105,7 +105,7 @@ def get_service(api_name):
     else:
         http_auth = credentials.authorize(Http())
 
-        if api_name is 'analytics':
+        if api_name == 'analytics':
             result = build(serviceName=api_name,
                            version=service[api_name],
                            http=http_auth,
